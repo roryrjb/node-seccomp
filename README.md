@@ -1,4 +1,4 @@
-# node-seccomp
+# node-seccomp [![Build Status](https://travis-ci.org/roryrjb/node-seccomp.svg?branch=master)](https://travis-ci.org/roryrjb/node-seccomp) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard) [![NPM version](https://img.shields.io/npm/v/node-seccomp.svg)](https://npmjs.org/package/node-seccomp) [![License](http://img.shields.io/npm/l/node-seccomp.svg)](LICENSE)
 
 > Node wrapper around [`libseccomp`](https://github.com/seccomp/libseccomp)
 
