@@ -25,7 +25,7 @@ describe('simple http test', () => {
         res.on('data', (chunk) => { rawData += chunk })
 
         res.on('end', () => {
-          assert.equal(rawData, 'hello world\n')
+          assert.strictEqual(rawData, 'hello world\n')
           counter++
 
           server.close(done)
@@ -35,6 +35,6 @@ describe('simple http test', () => {
   })
 
   it('execution as expected', () => {
-    assert.equal(counter, 2)
+    assert.strictEqual(counter, 2)
   })
 })
