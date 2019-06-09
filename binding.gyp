@@ -4,6 +4,7 @@
       "target_name": "seccomp",
       "sources": [
         "seccomp.cc",
+        "addon.cc",
         "noop.cc"
       ],
       "libraries": [
