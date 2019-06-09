@@ -29,8 +29,8 @@ __SCMP_ACT_KILL__
 :no_entry: This action isn't supported by this module.
 
 With Node.js and the way it works internally with V8 and libuv, if a thread is
-killed, it's unpredictable exactly what will happen and in my tests with this
-often the application appears to hang and will not recover.
+killed it's unpredictable exactly what will happen, and in my tests,
+the application just appears to hang and never recovers.
 
 __SCMP_ACT_ERRNO__
 
