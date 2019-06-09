@@ -16,25 +16,25 @@ If you don't know what __seccomp__ is, have a look
 This is a wrapper around the __libseccomp__ C library, which is itself an
 interface over the seccomp syscall and eBPF. In a nutshell it is used to
 intercept system calls in a process and get the Linux kernel to do something
-with them. Generally this will be to kill the process or raise an error if an
-unexpected syscall is called in your application.
-
-With Node.js and the way it works internally with V8 and libuv this is more
-complicated, even with the simplest Node.js applications.
-due to the various threads that will run underneath. Before version `2.4.0` of `libseccomp`
-the default behaviour of the _kill_ setting was to kill the thread (`SCMP_ACT_KILL`), what this usually
-means for a Node.js process is that it silently stops, as of `2.4.0` there is a kill
-setting that ensures the process itself is killed (`SCMP_ACT_KILL_PROCESS`), __which is the only method this
-wrapper currently supports__. With seccomp you can also get it to raise a specific
-error instead (there are other options as well which I haven't used and won't
-describe here, see `man seccomp_init` for more details), but in my mind that
-forces you to add additional logic to handle this and differentiate between errors for other reasons.
+to your process or with that information. Generally this means killing the
+process or raising an error if an unexpected syscall is called.
 
 __SCMP_ACT_KILL_PROCESS__
 
+Only available as of version `2.4.0` of `libseccomp`. It ensures the whole
+process is killed. It is the only _kill_ action exposed in this module.
+
 __SCMP_ACT_KILL__
 
+:no_entry: This action isn't supported by this module.
+
+With Node.js and the way it works internally with V8 and libuv, if a thread is
+killed, it's unpredictable exactly what will happen and in my tests with this
+often the application appears to hang and will not recover.
+
 __SCMP_ACT_ERRNO__
+
+:warning: Use of this action is not recommended.
 
 __SCMP_ACT_ALLOW__
 
@@ -59,8 +59,6 @@ const {
 } = require('./')
 
 const seccomp = NodeSeccomp()
-
-console.log('works')
 
 seccomp
   .init(SCMP_ACT_ALLOW)
